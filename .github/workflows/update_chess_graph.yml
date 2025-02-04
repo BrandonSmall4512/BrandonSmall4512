@@ -2,8 +2,8 @@ name: Update Chess Rating Chart
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # Запуск раз в сутки (в полночь UTC)
-  workflow_dispatch:  # Возможность запустить вручную
+    - cron: "0 0 * * * *"  
+  workflow_dispatch:  
 
 jobs:
   update_chart:
