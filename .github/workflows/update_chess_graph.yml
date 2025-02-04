@@ -1,34 +1,36 @@
-name: Update Chess Rating Chart
+name: Update Chess Rating Graph
 
 on:
   schedule:
-    - cron: "0 0 * * * *"  
+    - cron: '*/1 * * * *'  
   workflow_dispatch:  
 
 jobs:
-  update_chart:
-    runs-on: ubuntu-latest
+  update-graph:
+    runs-on: ubuntu-latest  
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2  
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.x"
+    - name: Set up Python environment
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  
 
-      - name: Install dependencies
-        run: pip install matplotlib requests
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests matplotlib
 
-      - name: Run Python script
-        run: python chess_rating.py
+    - name: Run chess rating graph script
+      run: |
+        python chess_rating.py  # Запускаем скрипт для обновления графика
 
-      - name: Commit and push changes
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git add rating_chart.png
-          git commit -m "Update chess rating chart" || echo "No changes to commit"
-          git push
-
+    - name: Commit and push updated graph
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git add rating_chart.png
+        git commit -m "Update chess rating graph"
+        git push
