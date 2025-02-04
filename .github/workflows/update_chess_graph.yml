@@ -2,7 +2,7 @@ name: Update Chess Rating Graph
 
 on:
   schedule:
-    - cron: '*/1 * *'  
+    - cron: '* * * *'  
   workflow_dispatch:  
 
 jobs:
