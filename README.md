@@ -29,7 +29,7 @@ I’m Stepan Nesmeyanov, a student at BMSTU and an enthusiastic developer who lo
 - 🎿 In my free time, I write pet projects, learn new technologies, write poetry, play the guitar, and chess.
 <!--- ⚡️ Fun-Fact: I sleep at 6am 🙃. -->
 - 📫 How to reach me: muska.fon@gmail.com
-- 📝 [Resume](https://drive.google.com/drive/folders/1VxDtIflu5nThxTtm8COG_eh_1FkjF3Jj)
+- 📝 [Resume](https://disk.yandex.ru/d/llXkWyEEtvBUxw)
 
 ### 🛠 Languages and Tools:
 
