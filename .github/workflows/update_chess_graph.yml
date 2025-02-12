@@ -1,4 +1,4 @@
-name: Update Chess Rating Graph
+name: Update Lichess Rating Graph
 
 on:
   schedule:
@@ -23,7 +23,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests matplotlib
 
-    - name: Run chess rating graph script
+    - name: Run lichess rating graph script
       run: |
         python chess_rating.py  # Запускаем скрипт для обновления графика
 
@@ -32,5 +32,5 @@ jobs:
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'actions@github.com'
         git add rating_chart.png
-        git commit -m "Update chess rating graph"
+        git commit -m "Update Lichess rating graph"
         git push
