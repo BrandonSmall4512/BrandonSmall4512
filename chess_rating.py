@@ -2,57 +2,35 @@ import requests
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-USERNAME = "Brandon_small"
+USERNAME = "Brandon_small4512"
 
-url = f"https://api.chess.com/pub/player/{USERNAME}/games/archives"
-response = requests.get(url)
+url = f"https://lichess.org/api/games/user/{USERNAME}?max=100&evals=false&opening=false"
+response = requests.get(url, headers={"Accept": "application/x-ndjson"})
 
-
-if response.status_code == 200:
-    data = response.json()
-
-    
-    if "archives" in data:
-        archives = data["archives"]
-    else:
-        print("No archives found.")
-        exit(1)
-else:
-    print(f"Error: {response.status_code}")
-    print(response.text)
-    exit(1)
-
-games = []
-for archive_url in archives[-3:]:
-    archive_response = requests.get(archive_url)
-    
- 
-    if archive_response.status_code == 200:
-        archive_data = archive_response.json()
-        games.extend(archive_data["games"])
-    else:
-        print(f"Failed to fetch archive: {archive_url}")
+games = response.text.strip().split("\n") if response.status_code == 200 else []
 
 ratings = []
 dates = []
 
-for game in games[-100:]:
-    if "pgn" not in game:
-        continue
+for game in games:
+    try:
+        game_data = eval(game)  
+        rating = game_data["players"]["white"]["rating"] if game_data["players"]["white"]["user"]["name"].lower() == USERNAME.lower() else game_data["players"]["black"]["rating"]
+        game_date = datetime.utcfromtimestamp(game_data["createdAt"] // 1000)
+        ratings.append(rating)
+        dates.append(game_date)
+    except Exception as e:
+        print(f"Ошибка при обработке игры: {e}")
 
-    rating = game["white"]["rating"] if game["white"]["username"].lower() == USERNAME.lower() else game["black"]["rating"]
-    game_date = datetime.fromtimestamp(game["end_time"])
-
-    ratings.append(rating)
-    dates.append(game_date)
-
-plt.figure(figsize=(10, 5))
-plt.plot(dates, ratings, marker="o", linestyle="-", color="b", markersize=4)
-plt.title(f"{USERNAME}'s Chess.com Rating Over Time")
-plt.xlabel("Date")
-plt.ylabel("Rating")
-plt.xticks(rotation=45)
-plt.grid()
-plt.tight_layout()
-
-plt.savefig("rating_chart.png")
+if ratings and dates:
+    plt.figure(figsize=(10, 5))
+    plt.plot(dates, ratings, marker="o", linestyle="-", color="b", markersize=4)
+    plt.title(f"{USERNAME}'s Lichess Rating Over Time")
+    plt.xlabel("Date")
+    plt.ylabel("Rating")
+    plt.xticks(rotation=45)
+    plt.grid()
+    plt.tight_layout()
+    plt.savefig("rating_chart.png")
+else:
+    print("Нет доступных данных для построения графика.")
