@@ -59,7 +59,8 @@ I’m Stepan Nesmeyanov, a student at BMSTU and an enthusiastic developer who lo
 
   
   ##### I am currently aiming to reach ELO 1800 blitz on chess.com ⚡. Here is an ascii tracker of my 100 previous chess.com blitz games.
-![Lichess Rating Chart](https://raw.githubusercontent.com/BrandonSmall4512/main/rating_chart.png)
+![Lichess Rating Chart](rating_chart.png)
+
 
   ```
   # ♟︎ Chess.com Ratings Chart #
