@@ -1,36 +1,33 @@
-name: Update Lichess Rating Graph
+name: Update Rating Chart
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  
-  workflow_dispatch:  
+    # Запускать каждый день в 12:00 UTC (15:00 по Москве)
+    - cron: '0 12 * * *'
+  workflow_dispatch:  # Разрешить ручной запуск
 
 jobs:
-  update-graph:
-    runs-on: ubuntu-latest  
-
+  update-chart:
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2  
-
-    - name: Set up Python environment
-      uses: actions/setup-python@v2
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.x'  
-
+        python-version: '3.10'
+        
     - name: Install dependencies
+      run: pip install requests matplotlib
+      
+    - name: Generate rating chart
+      run: python generate_chart.py  # Ваш скрипт с кодом
+      
+    - name: Commit and push changes
       run: |
-        python -m pip install --upgrade pip
-        pip install requests matplotlib
-
-    - name: Run lichess rating graph script
-      run: |
-        python chess_rating.py  # Запускаем скрипт для обновления графика
-
-    - name: Commit and push updated graph
-      run: |
-        git config --global user.name 'GitHub Actions'
-        git config --global user.email 'actions@github.com'
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git add rating_chart.png
-        git commit -m "Update Lichess rating graph"
+        git commit -m "Auto-update rating chart" || echo "No changes to commit"
         git push
