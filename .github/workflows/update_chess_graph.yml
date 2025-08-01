@@ -2,8 +2,8 @@ name: Update Rating Chart
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Запускать каждые 5 минут
-  workflow_dispatch:  # Разрешить ручной запуск
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
 
 jobs:
   update-chart:
@@ -11,7 +11,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      
+      with:
+        fetch-depth: 0  # Важно: получает всю историю коммитов
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -25,8 +27,9 @@ jobs:
       
     - name: Commit and push changes
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git pull --rebase  # Синхронизируем изменения
         git add rating_chart.png
-        git commit -m "Auto-update rating chart [skip ci]" || echo "No changes to commit"
+        git commit -m "Update Lichess rating graph [skip ci]"
         git push
