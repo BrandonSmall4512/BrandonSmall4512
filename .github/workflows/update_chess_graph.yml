@@ -12,7 +12,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0  # Важно: получает всю историю коммитов
+        fetch-depth: 0
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -29,7 +29,17 @@ jobs:
       run: |
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'actions@github.com'
-        git pull --rebase  # Синхронизируем изменения
+        
+        # Принудительно синхронизируем с удалённым репозиторием
+        git fetch origin
+        git reset --hard origin/main
+        
+        # Генерируем график ещё раз на случай конфликтов
+        python chess_rating.py
+        
+        # Добавляем и коммитим изменения
         git add rating_chart.png
-        git commit -m "Update Lichess rating graph [skip ci]"
-        git push
+        git commit -m "Update Lichess rating graph [skip ci]" || echo "No changes to commit"
+        
+        # Пушим изменения
+        git push origin main
