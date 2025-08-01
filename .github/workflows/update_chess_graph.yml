@@ -23,7 +23,7 @@ jobs:
       run: pip install requests matplotlib
       
     - name: Generate rating chart
-      run: python generate_chart.py
+      run: python chess_rating.py
       
     - name: Commit and push changes
       run: |
