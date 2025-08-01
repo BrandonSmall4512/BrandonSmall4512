@@ -2,8 +2,7 @@ name: Update Rating Chart
 
 on:
   schedule:
-    # Запускать каждый день в 12:00 UTC (15:00 по Москве)
-    - cron: '0 12 * * *'
+    - cron: '*/5 * * * *'  # Запускать каждые 5 минут
   workflow_dispatch:  # Разрешить ручной запуск
 
 jobs:
@@ -22,12 +21,12 @@ jobs:
       run: pip install requests matplotlib
       
     - name: Generate rating chart
-      run: python generate_chart.py  # Ваш скрипт с кодом
+      run: python generate_chart.py
       
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add rating_chart.png
-        git commit -m "Auto-update rating chart" || echo "No changes to commit"
+        git commit -m "Auto-update rating chart [skip ci]" || echo "No changes to commit"
         git push
