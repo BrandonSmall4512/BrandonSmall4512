@@ -10,7 +10,7 @@
 <p>
 I’m Stepan Nesmeyanov, a student at BMSTU and an enthusiastic developer who loves solving complex problems and mastering new technologies. 🚀
 <br/>
- - 💻 Tech stack: JavaScript, C++/C, JavaScript/HTML/CSS, Go, SQL, Python, Linux.
+ - 💻 Tech stack: C++/C, JavaScript/HTML/CSS, SQL, Python, Linux.
 <br/>
  - 📚 Currently improving: algorithms, data structures, and database management.
 <br/>  
