@@ -34,7 +34,6 @@ I’m Stepan Nesmeyanov, a student at BMSTU and an enthusiastic developer who lo
 ### 🛠 Languages and Tools:
 
 ![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
-![Nodejs](https://img.shields.io/badge/-Nodejs-black?style=flat-square&logo=Node.js)
 ![Express.js](https://img.shields.io/badge/-Express-black?style=flat-square&logo=expressjs)
 ![Go](https://img.shields.io/badge/-Go-black?style=flat-square&logo=go)
 ![Python](https://img.shields.io/badge/-Python-black?style=flat-square&logo=python)
